@@ -1,0 +1,8 @@
+#!/bin/bash
+
+xpra start :100
+
+DISPLAY=:100 /opt/IBController/IBControllerGatewayStart.sh
+
+#keeps docker alive. docker will stop, when script ends
+while true; do sleep 1000; done

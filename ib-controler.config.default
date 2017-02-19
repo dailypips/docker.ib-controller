@@ -1,0 +1,9 @@
+#if you run multiple ib gateways, you have to set a unique logging directory for each instance.
+
+IBC_NAME=
+IB_PORT=
+
+IBC_CONFIG=
+IB_CONFIG_DIR=
+
+IBC_LOG=
