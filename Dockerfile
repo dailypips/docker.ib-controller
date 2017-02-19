@@ -1,20 +1,29 @@
 FROM ubuntu:16.04
 
-RUN apt-get update
+RUN apt update
+RUN apt upgrade -y
 
-RUN apt-get install -y software-properties-common debconf-utils wget unzip
+RUN apt install -y software-properties-common debconf-utils wget unzip
 
 #java
 RUN add-apt-repository -y ppa:webupd8team/java
-RUN apt-get update
+RUN apt update
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
 
 #xpra
 COPY ./keyboard /etc/default/keyboard
-RUN apt-get -y install xpra
+RUN apt -y install xpra
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
+#ssh server
+RUN apt install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+RUN sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+COPY ./authorized_keys /root/.ssh/authorized_keys
+RUN chmod 600 /root/.ssh/authorized_keys
+
+RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
 
 #IB gateway
 RUN mkdir -p /opt/ibgateway
@@ -35,6 +44,8 @@ RUN chmod +x *.sh Scripts/*.sh
 
 
 ADD run-ib-controller /run-ib-controller
+
+EXPOSE 22
 
 EXPOSE 4001
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+/usr/sbin/sshd
+
 xpra start :100
 
 DISPLAY=:100 /opt/IBController/IBControllerGatewayStart.sh

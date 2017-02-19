@@ -1,1 +1,4 @@
-ib-controler.config
+ib-controller.config
+authorized_keys
+
+docker.ib-controller.tar

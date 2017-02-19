@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ib-controler.config
+. ib-controller.config
 
 PS3='Please enter your choice: '
 
@@ -12,13 +12,12 @@ do
         "run")
 					sudo docker stop ib-controller-$IBC_NAME
 					sudo docker container rm ib-controller-$IBC_NAME
-					sudo docker run -d --name=ib-controller-$IBC_NAME -v $HOME/.xpra:/root/.xpra/ -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4001 ib-controller
+					sudo docker run -d --name=ib-controller-$IBC_NAME -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4001 -p $SSH_PORT:22 ib-controller
 				;;
         "status")
 					sudo docker ps -a
 				;;
         "chown")
-					sudo chown -R $USER:$USER $HOME/.xpra
 					sudo chown -R $USER:$USER $IBC_LOG
 					sudo chown -R $USER:$USER $IB_CONFIG_DIR
 				;;
