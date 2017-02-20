@@ -2,3 +2,8 @@ ib-controller.config
 authorized_keys
 
 docker.ib-controller.tar
+
+configs/*
+
+used.ports.txt
+localforward
