@@ -13,6 +13,3 @@ Building docker image
 now IB gateway is running you can attach through script `xpra.attach.ssh.sh`
 
 you can use autossh to bind the remote ssh container ports to your local computer, so there is no need to expose the ssh container to the internet.
-
-#### TODO
-* using dockers user namespace to mount the container with host UUID so that there is no need to chown the mounted files
