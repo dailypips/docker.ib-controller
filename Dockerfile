@@ -23,6 +23,9 @@ RUN sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/ss
 COPY ./authorized_keys /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys
 
+#networking
+RUN apt install -y net-tools lsof socat
+
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
 
 #IB gateway
@@ -47,7 +50,7 @@ ADD run-ib-controller /run-ib-controller
 
 EXPOSE 22
 
-EXPOSE 4001
+EXPOSE 4002
 
 WORKDIR /
 

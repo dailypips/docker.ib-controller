@@ -12,7 +12,7 @@ do
         "run")
 					sudo docker stop ib-controller-$IBC_NAME
 					sudo docker container rm ib-controller-$IBC_NAME
-					sudo docker run -d --name=ib-controller-$IBC_NAME -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4001 -p $SSH_PORT:22 ib-controller
+					sudo docker run -d --name=ib-controller-$IBC_NAME -e "TZ=Europe/Berlin" -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4002 -p $SSH_PORT:22 ib-controller
 				;;
         "status")
 					sudo docker ps -a
