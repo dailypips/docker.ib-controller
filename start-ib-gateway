@@ -5,7 +5,7 @@
 socat TCP-LISTEN:4002,fork TCP:127.0.0.1:4001&
 
 xpra start :100
-DISPLAY=:100 /opt/IBController/IBControllerStart.sh
+DISPLAY=:100 /opt/IBController/IBControllerGatewayStart.sh
 
 #keeps docker alive. docker will stop, when script ends
 while true; do sleep 1000; done
