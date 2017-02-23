@@ -3,7 +3,7 @@
 CONFIGS=configs/*.config
 
 PS3='Please enter your choice: '
-options=("run" "chown" "stop" "quit")
+options=("run" "status" "chown" "stop" "quit")
 
 select opt in "${options[@]}"
 do
@@ -17,9 +17,13 @@ do
 
 						sudo docker stop ib-controller-$IBC_NAME
 						sudo docker container rm ib-controller-$IBC_NAME
-						sudo docker run -d --name=ib-controller-$IBC_NAME -e "TZ=Europe/Berlin" -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4002 -p $SSH_PORT:22 ib-controller
+						sudo docker run -d --name=ib-controller-$IBC_NAME -e "TZ=Europe/Berlin" -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4002 -p $SSH_PORT:22 ib-controller /start-ib-${IBC}
 					done
 				;;
+
+        "status")
+		    sudo docker ps -a
+        ;;
         "chown")
 	        for conf in $CONFIGS
 	        do
@@ -27,14 +31,14 @@ do
 						sudo chown -R $USER:$USER $IBC_LOG
 						sudo chown -R $USER:$USER $IB_CONFIG_DIR
 					done
-				;;
+		;;
         "stop")
 					for conf in $CONFIGS
 					do
 						. $conf
 						sudo docker stop ib-controller-$IBC_NAME
 					done
-				;;
+		;;
         "quit")
             break
         ;;

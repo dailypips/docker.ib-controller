@@ -4,7 +4,7 @@
 
 PS3='Please enter your choice: '
 
-options=("run" "status" "chown" "start" "stop" "build" "access" "attach" "export image" "load image" "quit")
+options=("run" "status" "chown" "start" "stop" "build" "access" "attach" "logs" "export image" "load image" "quit")
 
 select opt in "${options[@]}"
 do
@@ -12,7 +12,7 @@ do
         "run")
 					sudo docker stop ib-controller-$IBC_NAME
 					sudo docker container rm ib-controller-$IBC_NAME
-					sudo docker run -d --name=ib-controller-$IBC_NAME -e "TZ=Europe/Berlin" -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4002 -p $SSH_PORT:22 ib-controller
+					sudo docker run -d --name=ib-controller-$IBC_NAME -e "TZ=Europe/Berlin" -v $IBC_CONFIG:/root/IBController/IBController.ini -v $IBC_LOG:/root/IBController/Logs -v $IB_CONFIG_DIR:$IB_CONFIG_DIR -h ib-controller-$IBC_NAME -p $IB_PORT:4002 -p $SSH_PORT:22 ib-controller /start-ib-${IBC}
 				;;
         "status")
 					sudo docker ps -a
@@ -35,6 +35,9 @@ do
 				;;
         "attach")
 					sudo docker attach ib-controller-$IBC_NAME
+				;;
+        "logs")
+					sudo docker logs --follow=true --timestamps=true --details=true ib-controller-$IBC_NAME
 				;;
         "export image")
 					#exports the image so you can use it on another machine

@@ -1,5 +1,8 @@
 #if you run multiple ib gateways, you have to set a unique logging directory for each instance.
 
+#tws or gateway
+IBC=
+
 IBC_NAME=
 IB_PORT=
 

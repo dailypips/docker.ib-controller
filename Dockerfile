@@ -46,12 +46,11 @@ RUN rm IBController-3.2.0.zip
 RUN chmod +x *.sh Scripts/*.sh
 
 
-ADD run-ib-controller /run-ib-controller
+ADD start-ib-gateway /start-ib-gateway
+ADD start-ib-tws /start-ib-tws
 
 EXPOSE 22
 
 EXPOSE 4002
 
 WORKDIR /
-
-CMD ["/run-ib-controller"]
