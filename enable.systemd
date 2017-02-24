@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SYSTEMD=systemd/*.service
+
+for service in $SYSTEMD
+do
+		echo "enabling $(pwd)/$service"
+		systemctl link $(pwd)/$service
+		systemctl enable $(pwd)/$service
+done
+

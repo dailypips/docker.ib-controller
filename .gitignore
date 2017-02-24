@@ -6,6 +6,7 @@ authorized_keys
 docker.ib-controller.tar
 
 configs/*
+systemd/
 
 used.ports.txt
 localforward
