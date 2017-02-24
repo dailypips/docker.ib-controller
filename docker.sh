@@ -37,7 +37,7 @@ do
 					sudo docker attach ib-controller-$IBC_NAME
 				;;
         "logs")
-					sudo docker logs --follow=true --timestamps=true --details=true ib-controller-$IBC_NAME
+					sudo docker logs --timestamps=true --details=true ib-controller-$IBC_NAME
 				;;
         "export image")
 					#exports the image so you can use it on another machine

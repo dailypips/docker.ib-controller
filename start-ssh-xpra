@@ -1,0 +1,12 @@
+#!/bin/bash
+
+/usr/sbin/sshd
+
+socat TCP-LISTEN:4002,fork TCP:127.0.0.1:4001&
+
+xpra stop 100
+rm /root/.:100-fakexinerama
+rm /tmp/.X100-lock
+rm /tmp/.X11-unix/X100
+
+xpra start :100

@@ -46,6 +46,7 @@ RUN rm IBController-3.2.0.zip
 RUN chmod +x *.sh Scripts/*.sh
 
 
+ADD start-ssh-xpra /start-ssh-xpra
 ADD start-ib-gateway /start-ib-gateway
 ADD start-ib-tws /start-ib-tws
 
