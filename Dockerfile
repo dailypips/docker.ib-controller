@@ -13,6 +13,9 @@ RUN apt-get install -y oracle-java8-installer
 
 #xpra
 COPY ./keyboard /etc/default/keyboard
+RUN echo "deb http://winswitch.org/ xenial main" > /etc/apt/sources.list.d/winswitch.org.list
+RUN wget -q http://winswitch.org/gpg.asc -O- | apt-key add -
+RUN apt update
 RUN apt -y install xpra
 
 #ssh server
@@ -43,6 +46,7 @@ WORKDIR /opt/IBController/
 RUN wget -q https://github.com/ib-controller/ib-controller/releases/download/3.2.0/IBController-3.2.0.zip
 RUN unzip IBController-3.2.0.zip
 RUN rm IBController-3.2.0.zip
+RUN sed -i 's/952/963/' *.sh
 RUN chmod +x *.sh Scripts/*.sh
 
 
