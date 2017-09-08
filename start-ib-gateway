@@ -2,7 +2,7 @@
 
 . start-ssh-xpra
 
-DISPLAY=:100 /opt/IBController/IBControllerGatewayStart.sh
+DISPLAY=:100 /opt/IBController/IBControllerGatewayStart.sh -inline
 
 #keeps docker alive. docker will stop, when script ends
 while true; do sleep 1000; done

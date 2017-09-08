@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 RUN apt update
 RUN apt upgrade -y
 
-RUN apt install -y software-properties-common debconf-utils wget unzip
+RUN apt install -y software-properties-common debconf-utils wget unzip xterm
 
 #java
 RUN add-apt-repository -y ppa:webupd8team/java
@@ -29,24 +29,30 @@ RUN chmod 600 /root/.ssh/authorized_keys
 #networking
 RUN apt install -y net-tools lsof socat
 
+#audio codecs for tws
+RUN apt install -y libavcodec-extra libavcodec-ffmpeg-extra56 ffmpeg libavformat-ffmpeg56 libavutil-ffmpeg54 libglib2.0-0
+
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/oracle-jdk8-installer
 
 #IB gateway
 RUN mkdir -p /opt/ibgateway
 WORKDIR /opt/ibgateway
 #source; https://www.interactivebrokers.com/en/index.php?f=16457#tws-platforms-03
-RUN wget -q https://download2.interactivebrokers.com/installers/ibgateway/stable-standalone/ibgateway-stable-standalone-linux-x64.sh
-RUN chmod +x ibgateway-stable-standalone-linux-x64.sh
-RUN yes n | ./ibgateway-stable-standalone-linux-x64.sh
-RUN rm ibgateway-stable-standalone-linux-x64.sh
+# stable
+#RUN wget -q https://download2.interactivebrokers.com/installers/ibgateway/stable-standalone/ibgateway-stable-standalone-linux-x64.sh
+# latest
+RUN wget -q https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh
+RUN chmod +x ibgateway-latest-standalone-linux-x64.sh
+RUN yes n | ./ibgateway-latest-standalone-linux-x64.sh
+RUN rm ibgateway-latest-standalone-linux-x64.sh
 
 #ib-controller
 RUN mkdir -p /opt/IBController/
 WORKDIR /opt/IBController/
-RUN wget -q https://github.com/ib-controller/ib-controller/releases/download/3.2.0/IBController-3.2.0.zip
-RUN unzip IBController-3.2.0.zip
-RUN rm IBController-3.2.0.zip
-RUN sed -i 's/952/963/' *.sh
+RUN wget -q https://github.com/ib-controller/ib-controller/releases/download/3.4.0/IBController-3.4.0.zip
+RUN unzip IBController-3.4.0.zip
+RUN rm IBController-3.4.0.zip
+RUN sed -i 's/963/967/' *.sh
 RUN chmod +x *.sh Scripts/*.sh
 
 

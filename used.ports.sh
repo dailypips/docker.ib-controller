@@ -12,4 +12,5 @@ do
     echo -e "SSH_PORT:\t$SSH_PORT" >> used.ports.txt
     echo "LocalForward $IB_PORT localhost:$IB_PORT" >> localforward
     echo "LocalForward $SSH_PORT localhost:$SSH_PORT" >> localforward
+    echo "-------------" >> used.ports.txt
 done
